@@ -22,6 +22,8 @@ def index():
 
 @app.route('/process', methods=['POST'])
 def process():
+    print("Process route triggered")
+    return "Process route hit!"
     if 'file' not in request.files:
         return 'No file uploaded'
     
