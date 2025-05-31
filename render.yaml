@@ -2,9 +2,12 @@ services:
   - type: web
     name: audio-separator
     env: python
-    buildCommand: pip install -r requirements.txt
+    pythonVersion: 3.8  # 
+    buildCommand: |
+      apt-get update && apt-get install -y build-essential
+      pip install --upgrade pip setuptools wheel
+      pip install -r requirements.txt
     startCommand: python app.py
-    pythonVersion: 3.9  # 
     autoDeploy: true
     envVars:
       - key: REDIS_URL
