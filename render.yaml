@@ -1,12 +1,12 @@
 services:
   - type: web
     name: audio-separator
-    env: python
-    pythonVersion: "3.8"  
-    plan: starter           
+    env: python        
     buildCommand: ./render-build.sh
     startCommand: python app.py
     envVars:
       - key: REDIS_URL
         value: rediss://default:AaxkAAIjcDFlOTg0N2NjYWEzYWY0NjFlOGM5NWFmZTBhY2ZkZjg3NHAxMA@smiling-dolphin-44132.upstash.io:6379
+      - key: PYTHON_VERSION
+        value: 3.8.17
 
