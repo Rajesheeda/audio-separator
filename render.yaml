@@ -1,9 +1,9 @@
 services:
   - type: web
     name: audio-separator
-    env: python        
+    env: python
     buildCommand: ./render-build.sh
-    startCommand: python --version && python app.py
+    startCommand: gunicorn app:app
     envVars:
       - key: REDIS_URL
         value: rediss://default:AaxkAAIjcDFlOTg0N2NjYWEzYWY0NjFlOGM5NWFmZTBhY2ZkZjg3NHAxMA@smiling-dolphin-44132.upstash.io:6379
@@ -11,4 +11,5 @@ services:
         value: 3.8.17
       - key: CUDA_VISIBLE_DEVICES
         value: ""
+
 
