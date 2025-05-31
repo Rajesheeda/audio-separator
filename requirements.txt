@@ -1,6 +1,8 @@
-pip==23.3.1
-setuptools==65.5.0
-wheel==0.38.4
 numpy==1.18.5
 tensorflow==2.7.0
 spleeter==2.1.0
+
+# Pinning build tools to avoid pyproject.toml errors
+pip==23.3.1
+setuptools==65.5.0
+wheel==0.38.4
