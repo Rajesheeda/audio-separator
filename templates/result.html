@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Separated Audio</title></head>
+<body>
+  <h2>Original Audio</h2>
+  <audio controls src="{{ original_file }}"></audio><br>
+  <a href="{{ original_file }}" download>Download Original</a>
+
+  <h2>Vocals</h2>
+  <audio controls src="{{ vocals_file }}"></audio><br>
+  <a href="{{ vocals_file }}" download>Download Vocals</a>
+
+  <h2>Accompaniment</h2>
+  <audio controls src="{{ accompaniment_file }}"></audio><br>
+  <a href="{{ accompaniment_file }}" download>Download Accompaniment</a>
+</body>
+</html>
