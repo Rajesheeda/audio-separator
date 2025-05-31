@@ -47,7 +47,10 @@ def uploaded_file(filename):
 @app.route('/download')
 def download():
     path = request.args.get('v')
+    if not path or not os.path.exists(path):
+        return 'File not found', 404
     return send_file(path, as_attachment=True)
+
     
 @app.route('/output/<path:filename>')
 def output_file(filename):
