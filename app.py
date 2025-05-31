@@ -3,6 +3,8 @@ from concurrent.futures import ThreadPoolExecutor
 import os
 from spleeter.separator import Separator
 
+from flask import send_from_directory
+
 app = Flask(__name__)
 executor = ThreadPoolExecutor()
 
@@ -17,6 +19,11 @@ def index():
             return "Processing started. Check back later."
     return render_template("index.html")
 
+
+@app.route('/output/<path:filename>')
+def output_file(filename):
+    return send_from_directory('output', filename)
+    
 def separate_audio(file_path):
     separator = Separator("spleeter:2stems")
     separator.separate_to_file(file_path, "outputs")
