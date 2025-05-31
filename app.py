@@ -1,11 +1,13 @@
 import os
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, request, render_template, send_from_directory, send_file
 from spleeter.separator import Separator
 from werkzeug.utils import secure_filename
+from pydub import AudioSegment
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
 OUTPUT_FOLDER = 'output'
+
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
@@ -16,33 +18,37 @@ def index():
 @app.route('/process', methods=['POST'])
 def process():
     if 'file' not in request.files:
-        return 'No file uploaded', 400
-
+        return 'No file uploaded'
+    
     file = request.files['file']
     if file.filename == '':
-        return 'No selected file', 400
+        return 'Empty filename'
 
-    filename = secure_filename(file.filename)
-    upload_path = os.path.join(UPLOAD_FOLDER, filename)
-    file.save(upload_path)
+    input_path = os.path.join(UPLOAD_FOLDER, file.filename)
+    file.save(input_path)
 
-    # Output directory for Spleeter
-    output_subdir = os.path.join(OUTPUT_FOLDER, os.path.splitext(filename)[0])
-    os.makedirs(output_subdir, exist_ok=True)
-
-    # Run Spleeter
+    # Spleeter separation
     separator = Separator('spleeter:2stems')
-    separator.separate_to_file(upload_path, OUTPUT_FOLDER)
+    separator.separate_to_file(input_path, OUTPUT_FOLDER)
+
+    filename_wo_ext = os.path.splitext(file.filename)[0]
+    separated_folder = os.path.join(OUTPUT_FOLDER, filename_wo_ext)
+    vocals_path = os.path.join(separated_folder, 'vocals.wav')
+    accompaniment_path = os.path.join(separated_folder, 'accompaniment.wav')
 
     return render_template('result.html',
-                           original_file=f"/{upload_path}",
-                           vocals_file=f"/{output_subdir}/vocals.wav",
-                           accompaniment_file=f"/{output_subdir}/accompaniment.wav")
+                           vocals_path=f"/download?v={vocals_path}",
+                           music_path=f"/download?v={accompaniment_path}")
 
 @app.route('/uploads/<path:filename>')
 def uploaded_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
 
+@app.route('/download')
+def download():
+    path = request.args.get('v')
+    return send_file(path, as_attachment=True)
+    
 @app.route('/output/<path:filename>')
 def output_file(filename):
     return send_from_directory(OUTPUT_FOLDER, filename)
