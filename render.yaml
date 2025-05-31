@@ -4,6 +4,7 @@ services:
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: python app.py
+    pythonVersion: 3.9  # 
     autoDeploy: true
     envVars:
       - key: REDIS_URL
