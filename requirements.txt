@@ -2,5 +2,5 @@ Flask
 celery
 redis
 python-dotenv
-numpy==1.18.5
+numpy==1.23.5
 spleeter==2.1.0
