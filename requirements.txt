@@ -12,3 +12,4 @@ flask==2.0.3
 protobuf==3.20.*
 pydub
 gunicorn
+python-dotenv
