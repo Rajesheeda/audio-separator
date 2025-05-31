@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: audio-separator-web
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: REDIS_URL
+        value: rediss://default:your_password@smiling-dolphin-44132.upstash.io:6379
+
+  - type: worker
+    name: audio-separator-worker
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: celery -A tasks worker --loglevel=info
+    envVars:
+      - key: REDIS_URL
+        value: rediss://default:your_password@smiling-dolphin-44132.upstash.io:6379
