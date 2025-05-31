@@ -9,4 +9,6 @@ services:
         value: rediss://default:AaxkAAIjcDFlOTg0N2NjYWEzYWY0NjFlOGM5NWFmZTBhY2ZkZjg3NHAxMA@smiling-dolphin-44132.upstash.io:6379
       - key: PYTHON_VERSION
         value: 3.8.17
+      - key: CUDA_VISIBLE_DEVICES
+        value: ""
 
