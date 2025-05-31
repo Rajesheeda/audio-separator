@@ -1,17 +1,70 @@
 <!DOCTYPE html>
-<html>
-<head><title>Separated Audio</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Separated Tracks</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      color: #444;
+    }
+
+    .audio-block {
+      margin: 30px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    audio {
+      width: 100%;
+    }
+
+    .btn {
+      margin-top: 10px;
+      display: inline-block;
+      padding: 10px 20px;
+      background: #007BFF;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
 <body>
-  <h2>Original Audio</h2>
-  <audio controls src="{{ original_file }}"></audio><br>
-  <a href="{{ original_file }}" download>Download Original</a>
+  <h1>🎧 Separated Audio Tracks</h1>
 
-  <h2>Vocals</h2>
-  <audio controls src="{{ vocals_file }}"></audio><br>
-  <a href="{{ vocals_file }}" download>Download Vocals</a>
+  <div class="audio-block">
+    <h2>Vocals</h2>
+    <audio controls>
+      <source src="{{ vocals_path }}" type="audio/wav">
+      Your browser does not support the audio element.
+    </audio>
+    <br>
+    <a class="btn" href="{{ vocals_path }}" download>Download Vocals</a>
+  </div>
 
-  <h2>Accompaniment</h2>
-  <audio controls src="{{ accompaniment_file }}"></audio><br>
-  <a href="{{ accompaniment_file }}" download>Download Accompaniment</a>
+  <div class="audio-block">
+    <h2>Accompaniment</h2>
+    <audio controls>
+      <source src="{{ music_path }}" type="audio/wav">
+      Your browser does not support the audio element.
+    </audio>
+    <br>
+    <a class="btn" href="{{ music_path }}" download>Download Accompaniment</a>
+  </div>
 </body>
 </html>
