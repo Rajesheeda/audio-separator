@@ -1,18 +1,32 @@
+/* static/style.css */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f7f7f7;
+  background-color: #f2f2f2;
+  padding: 40px;
   text-align: center;
-  padding-top: 50px;
 }
 
 .container {
-  background: white;
+  background-color: white;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 0 10px #ccc;
   display: inline-block;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-input[type="file"], input[type="submit"] {
-  margin-top: 10px;
+a {
+  display: block;
+  margin: 15px;
+  text-decoration: none;
+  color: #007BFF;
+  font-size: 18px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+audio {
+  margin: 20px 0;
+  width: 300px;
 }
