@@ -1,14 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Audio Separator</title>
+  <meta charset="UTF-8">
+  <title>Audio Splitter</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background: #f8f9fa;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .container {
+      max-width: 600px;
+      margin-top: 80px;
+    }
+    .card {
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    #results {
+      display: none;
+      margin-top: 20px;
+    }
+    audio {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-    <h1>Upload a Song to Separate Vocals and Instrumental</h1>
-    <form action="/" method="POST" enctype="multipart/form-data">
-        <input type="file" name="audio_file" accept="audio/*" required>
-        <button type="submit">Upload</button>
-    </form>
+  <div class="container">
+    <div class="card text-center">
+      <h2 class="mb-4">🎵 Vocal & Music Splitter</h2>
+      <form id="upload-form" method="POST" enctype="multipart/form-data" action="/process">
+        <div class="mb-3">
+          <input class="form-control" type="file" name="audio_file" accept="audio/*" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Split Audio</button>
+      </form>
+
+      <div id="results" class="alert alert-success mt-4 text-start">
+        <h5>✅ Processing Complete</h5>
+        <p>🎧 Listen to the separated tracks:</p>
+        <div>
+          <strong>Vocals:</strong>
+          <audio controls id="vocals-player"></audio>
+        </div>
+        <div>
+          <strong>Accompaniment:</strong>
+          <audio controls id="accomp-player"></audio>
+        </div>
+        <div>
+          <strong>Original:</strong>
+          <audio controls id="original-player"></audio>
+        </div>
+        <a id="download-link" class="btn btn-success mt-3" href="#" download>⬇️ Download ZIP</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('download')) {
+      const base = '/output/' + urlParams.get('download').replace('.zip', '');
+
+      document.getElementById('results').style.display = 'block';
+      document.getElementById('download-link').href = '/download/' + urlParams.get('download');
+      document.getElementById('vocals-player').src = `${base}/vocals.wav`;
+      document.getElementById('accomp-player').src = `${base}/accompaniment.wav`;
+      document.getElementById('original-player').src = `${base}/original.mp3`;
+    }
+  </script>
 </body>
 </html>
