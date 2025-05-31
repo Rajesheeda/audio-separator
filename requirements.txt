@@ -1,5 +1,6 @@
-setuptools<60
-wheel
+Flask
+celery
+redis
+python-dotenv
 numpy==1.18.5
 spleeter==2.1.0
-Flask
