@@ -7,8 +7,20 @@
 </head>
 <body>
   <div class="container">
-    <h1>Download Separated Tracks</h1>
-    <a href="{{ vocals_path }}">Download Vocals</a><br>
+    <h1>Download & Listen to Separated Tracks</h1>
+
+    <h3>Vocals</h3>
+    <audio controls>
+      <source src="{{ vocals_play }}" type="audio/wav">
+      Your browser does not support the audio element.
+    </audio><br>
+    <a href="{{ vocals_path }}">Download Vocals</a>
+
+    <h3>Instrumental</h3>
+    <audio controls>
+      <source src="{{ music_play }}" type="audio/wav">
+      Your browser does not support the audio element.
+    </audio><br>
     <a href="{{ music_path }}">Download Instrumental</a>
   </div>
 </body>
