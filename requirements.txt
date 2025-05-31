@@ -1,8 +1,16 @@
-Flask==2.2.5
-gunicorn
+
 spleeter==2.1.0
-tensorflow-cpu==2.3.0
-pydub
+tensorflow==2.3.0
+Flask==2.0.3
+werkzeug==2.0.3
 numpy==1.18.5
-ffmpeg-python
-Werkzeug==2.2.3
+
+# Pinning build tools to avoid pyproject.toml errors
+pip==23.3.1
+setuptools==65.5.0
+wheel==0.38.4
+flask==2.0.3
+protobuf==3.20.*
+pydub
+gunicorn
+python-dotenv
