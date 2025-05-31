@@ -46,14 +46,23 @@ def process():
     vocals_path = os.path.join(separated_folder, 'vocals.wav')
     accompaniment_path = os.path.join(separated_folder, 'accompaniment.wav')
 
-    # return render_template("result.html", message="Processing started. Check back later.")
-    # # Pass paths to session or context
-    return render_template('result.html',
-                           vocals_path=f"/download?v={vocals_path}",
-                           music_path=f"/download?v={accompaniment_path}",
-                           vocals_play=f"/stream?v={vocals_path}",
-                           music_play=f"/stream?v={accompaniment_path}"
-                           )
+    response = render_template(
+        'result.html',
+        vocals_path=f"/download?v={vocals_path}",
+        music_path=f"/download?v={accompaniment_path}",
+        vocals_play=f"/stream?v={vocals_path}",
+        music_play=f"/stream?v={accompaniment_path}"
+    )
+    
+    # CLEANUP after rendering (file already processed)
+    try:
+        os.remove(input_path)
+        shutil.rmtree(separated_folder)
+    except Exception as e:
+        print(f"Cleanup failed: {e}")
+    
+    return response
+    
 
 @app.route('/download')
 def download():
