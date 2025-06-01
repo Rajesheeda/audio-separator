@@ -12,8 +12,8 @@ app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)  # Generate a secure secret key
 
 # Directories
-UPLOAD_FOLDER = 'uploads'
-OUTPUT_FOLDER = 'output'
+UPLOAD_FOLDER = '/tmp/uploads'
+OUTPUT_FOLDER = '/tmp/output'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
