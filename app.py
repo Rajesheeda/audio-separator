@@ -55,11 +55,11 @@ def process():
     )
     
     # CLEANUP after rendering (file already processed)
-    try:
-        os.remove(input_path)
-        shutil.rmtree(separated_folder)
-    except Exception as e:
-        print(f"Cleanup failed: {e}")
+    # try:
+    #     os.remove(input_path)
+    #     shutil.rmtree(separated_folder)
+    # except Exception as e:
+    #     print(f"Cleanup failed: {e}")
     
     return response
     
