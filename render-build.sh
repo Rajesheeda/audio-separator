@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
-# Exit on any error
-set -o errexit
+set -e  # Exit on any error
 
-# Install system dependencies (FFmpeg)
-apt-get update && apt-get install -y ffmpeg
+echo "Updating package lists..."
+apt-get update -y
 
-# Install Python dependencies
-pip install --upgrade pip
+echo "Installing ffmpeg..."
+apt-get install -y ffmpeg
+
+echo "Installing Python dependencies..."
+pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
+
+echo "Build completed."
