@@ -15,6 +15,18 @@ os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 def index():
     return render_template('index.html')
 
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    try:
+        uploaded_file = request.files['file']
+        # Save file or process it
+        uploaded_file.save('/tmp/' + uploaded_file.filename)
+        return jsonify({"message": "File uploaded successfully"})
+    except Exception as e:
+        print(traceback.format_exc())  # Log full traceback to stdout/stderr (visible in logs)
+        return jsonify({"error": str(e)}), 500
+        
+
 @app.route('/process', methods=['POST'])
 def process():
     file = request.files['file']
