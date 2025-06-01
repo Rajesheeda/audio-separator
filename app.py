@@ -16,16 +16,24 @@ os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 def index():
     return render_template('index.html')
 
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     try:
-        uploaded_file = request.files['file']
-        # Save file or process it
-        uploaded_file.save('/tmp/' + uploaded_file.filename)
-        return jsonify({"message": "File uploaded successfully"})
-    except Exception as e:
-        print(traceback.format_exc())  # Log full traceback to stdout/stderr (visible in logs)
-        return jsonify({"error": str(e)}), 500
+        file = request.files['file']
+        if file:
+            filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+            file.save(filepath)
+
+            # Run Demucs
+            demucs_separate(["--two-stems=vocals", filepath])
+
+            return jsonify({"message": "File uploaded and processed successfully"})
+        else:
+            return jsonify({"error": "No file found"}), 400
+    except Exception:
+        print(traceback.format_exc())
+        return jsonify({"error": "Internal server error"}), 500
         
 
 @app.route('/process', methods=['POST'])
@@ -41,12 +49,7 @@ def process():
 
     # Run Spleeter CLI (2 stems: vocals + accompaniment)
     try:
-        subprocess.run([
-            'spleeter', 'separate',
-            '-p', 'spleeter:2stems',
-            '-o', OUTPUT_FOLDER,
-            input_path
-        ], check=True)
+        subprocess.run(["python3", "-m", "demucs", filepath], capture_output=True, text=True)
     except subprocess.CalledProcessError:
         return "Audio processing failed", 500
 
