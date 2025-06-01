@@ -4,6 +4,8 @@ from spleeter.separator import Separator
 from werkzeug.utils import secure_filename
 from pydub import AudioSegment
 import secrets
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 # Flask setup
 app = Flask(__name__)
